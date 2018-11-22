@@ -2,15 +2,6 @@
  * @author guyeol, jeong
  * Copyright © 2018 guyeol_jeong. All rights reserved.
  */
-
-	var obj = {
-		exact: ["naver", "kakao"],
-		or: ["google", "naver", "kakao"],
-		exclude: ["daum"],
-		site: "https://naver.com",
-		type: ["pdf"]
-	};
-
 var GoogleQuery = function (obj) {
 	var gQuery;
 
@@ -30,7 +21,7 @@ var GoogleQuery = function (obj) {
 		else {
 			console.log("keword: " + ob);
 			switch (ob) {
-				case 'exact': break;
+				case 'exact': exact(); break;
 				case 'or': break;
 				case 'exclude': break;
 				case 'type': break;
@@ -61,7 +52,7 @@ var GoogleQuery = function (obj) {
 
 	}
 
-	return gQuery;
+	return "test";
 };
 
  export {GoogleQuery};
