@@ -41,7 +41,10 @@ var GoogleQuery = function (obj) {
 	}
 
 	function exclude (o) {
-
+		for (var a of o) {
+			gQuery += '-' + a;
+			gQuery += ' ';
+		}
 	}
 
 	function site (o) {
