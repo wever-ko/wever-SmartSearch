@@ -3,7 +3,7 @@
  * Copyright © 2018 guyeol_jeong. All rights reserved.
  */
 var GoogleQuery = function (obj) {
-	var gQuery;
+	var gQuery = "";
 
 	for (var ob in obj) {
 		// 정의되었지만 비어있거나 정의되지 않았을 때,
@@ -48,14 +48,14 @@ var GoogleQuery = function (obj) {
 	}
 
 	function site (o) {
-
+		gQuery += "site:" + o;
 	}
 
-	function type (o) {
-
+	function filetype (o) {
+		gQuery += "filetype:" + o;
 	}
 
-	return "test";
+	return gQuery;
 };
 
  export {GoogleQuery};
