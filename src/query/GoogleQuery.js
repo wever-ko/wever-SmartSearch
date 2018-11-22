@@ -11,29 +11,29 @@ var GoogleQuery = function (obj) {
 			console.log("NO");
 		}
 		// 데이터 타입이 string일 때,
-		else if (typeof ob === "string") {
+		else if (typeof obj[ob] === "string") {
 			switch (ob) {
-				case site: break;
-				case type: break;
+				case 'basic': gQuery += obj[ob] + ' '; break;
+				case 'site': site(obj[ob]); break;
+				case 'type': filetype(obj[ob]); break;
 			}
 		}
 		// 데이터 타입이 array일 때
 		else {
-			console.log("keword: " + ob);
 			switch (ob) {
-				case 'exact': exact(); break;
+				case 'exact': exact(obj[ob]); break;
 				case 'or': break;
-				case 'exclude': break;
+				case 'exclude': exclude(obj[ob]); break;
 				case 'type': break;
-			}
-			for (var a of obj[ob]) {
-				console.log("values: " + a);
 			}
 		}
 	}
 
 	function exact (o) {
-
+		for (var a of o) {
+			gQuery += '\"' + a + '\"';
+			gQuery += ' ';
+		}
 	}
 
 	function or (o) {
