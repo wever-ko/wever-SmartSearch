@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+  "name": "Smart Search",
+  "version": "0.01",
+  "sidebar_action": {
+    "default_page": "index.html",
+    "default_icon": {                // 필수
+        "16": "images/icon.png"
+    },
+    "default_title": "Smart Search",
+    "use_navigation_bar": true,
+    "mobile_user_agent": true
+  },
+  "background": {
+    "scripts": [
+      "libs/jquery.js",
+      "build/bundle.js",
+      "test.js"
+    ]
+  }
+}
