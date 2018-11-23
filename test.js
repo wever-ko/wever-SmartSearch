@@ -77,7 +77,7 @@ $( function(){
     $('#naverSearch').on('click', function () {
         var params = getSharedParams();
         fill_to_HTML("input", params);
-        fill_to_HTML("output", Wever.NaverQuery(params));
+        $('#output').html(Wever.NaverQuery(params));
     });
 
     // Google Search
@@ -97,7 +97,7 @@ $( function(){
         if (fileValues.length) params['file'] = fileValues;
         if (siteValue.length) params['site'] = siteValue;
         fill_to_HTML("input", params);
-        fill_to_HTML("output", Wever.GoogleQuery(params));
+        $('#output').html(Wever.GoogleQuery(params));
     });
 
     // YouTube Search
@@ -134,9 +134,9 @@ $( function(){
         if (movieValues.length) params['movie'] = movieValues;
         if (playlistValues.length) params['playlist'] = playlistValues;
         if (titleValues.length) params['title'] = titleValues;
-        if (periodValue.length) params['period'] = periodValue;
+        if (periodValue.length) params['time'] = periodValue;
         fill_to_HTML("input", params);
-        fill_to_HTML("output", Wever.YouTubeQuery(params));
+        $('#output').html(Wever.YouTubeQuery(params));
     });
 
     function syntaxHighlight(json) {
