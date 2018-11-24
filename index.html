@@ -1,9 +1,199 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+    <meta charset="UTF-8">
+	<title> 테스트 용도</title>
 </head>
+	<style type="text/css">
+		.tab_content {
+            width: 100%;
+			display: none;
+            font-size: 14px;
+		}
+        .tab_content.opend {
+            display: block;
+        }
+        .tab_container {
+            width: 100%;
+            height: 30px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: black;
+            margin-bottom: 20px;
+        }
+        .tab {
+            display: inline-block;
+            float:left;
+            width: 80px;
+            height: 30px;
+            border-width: 0px 1px 0px 0px;
+            border-style: solid;
+            border-color: black;
+            color:black;
+            background: white;
+        }
+        .tab a {
+            line-height: 30px;
+        }
+        .tab.opend {
+            background: black;
+            color:white;
+        }
+        .shared_content {
+            width: 100%;
+            font-size: 14px;
+        }
+        .output {
+            width: 100%;
+        }
+        .data {
+            width: 100%;
+            min-height: 80px;
+            border-width: 1px;
+            border-style: dotted;
+        }
+        pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
+        .string { color: green; }
+        .number { color: darkorange; }
+        .boolean { color: blue; }
+        .null { color: magenta; }
+        .key { color: red; }
+        li {
+            border-width: 0px 0px 1px 0px;
+            border-color:gray;
+            border-style: dotted;
+        }
+	</style>
 <body>
+    <div>
+        <h4> Smart Search Test</h4>
+    </div>
+    <!-- Tab -->
+    <div class="tab_container">
+        <div data-name="naver" class="tab opend">
+            <a> 네이버 </a>
+        </div>
+        <div data-name="google" class="tab">
+            <a> 구글 </a>
+        </div>
+        <div data-name="youtube" class="tab">
+            <a> 유튜브 </a>
+        </div>
+    </div>
+    <!-- Tab //-->
 
+    <!-- Shared -->
+    <div class="shared_content">
+        <li>
+            <span> 기본검색어 : </span> <input id="basic" type="text" size="10">
+        </li>
+        <li>
+            <span> 정확 : </span>
+            <input class="exact" type="text" size="10">
+            <input class="exact" type="text" size="10">
+            <input class="exact" type="text" size="10">
+        </li>
+        <li>
+            <span> 포함 : </span>
+            <input class="include" type="text" size="10">
+            <input class="include" type="text" size="10">
+            <input class="include" type="text" size="10">
+        </li>
+        <li>
+            <span> 제외 : </span>
+            <input class="exclude" type="text" size="10">
+            <input class="exclude" type="text" size="10">
+            <input class="exclude" type="text" size="10">
+        </li>
+        <li>
+            <span> 또는 : </span>
+            <input class="or" type="text" size="10">
+            <input class="or" type="text" size="10">
+            <input class="or" type="text" size="10">
+        </li>
+    </div>
+    <!-- Shared //-->
+
+	<div id="naver_content" class="tab_content opend">
+        <button id="naverSearch"> Search </button>
+	</div>
+    <div id="google_content" class="tab_content">
+        <li>
+            <span> 사이트 : </span> <input  id="site" type="text">
+        </li>
+        <li>
+            <span> 파일 : </span>
+            <select class = "type">
+                <option value = "">none</option>
+                <option value = "pdf">pdf</option>
+                <option value = "ps">ps</option>
+                <option value = "dwf">dwf</option>
+                <option value = "kml">kml</option>
+                <option value = "kmz">kmz</option>
+                <option value = "xls">xls</option>
+                <option value = "ppt">ppt</option>
+                <option value = "doc">doc</option>
+                <option value = "rtf">rtf</option>
+                <option value = "swf">swf</option>
+            </select>
+        </li>
+        <button id="googleSearch"> Search </button>
+    </div>
+    <div id="youtube_content" class="tab_content">
+        <li>
+            <span> 채널 : </span>
+            <input class="channel" type="text" size = "10">
+            <input class="channel" type="text" size = "10">
+            <input class="channel" type="text" size = "10">
+        </li>
+        <li>
+            <span> 영화 : </span>
+            <input class="movie" type="text" size ="10">
+            <input class="movie" type="text" size ="10">
+            <input class="movie" type="text" size ="10">
+        </li>
+        <li>
+            <span> 재생목록 : </span>
+            <input class="playlist" type="text" size="10">
+            <input class="playlist" type="text" size="10">
+            <input class="playlist" type="text" size="10">
+        </li>
+        <li>
+            <span> 제목 : </span>
+            <input class="title" type="text" size ="10">
+            <input class="title" type="text" size ="10">
+            <input class="title" type="text" size ="10">
+        </li>
+        <li>
+            <span> 기간 : </span>
+            <select id = "period">
+                <option value = "">none</option>
+                <option value = "hour">hour</option>
+                <option value = "week">week</option>
+                <option value = "month">month</option>
+                <option value = "year">year</option>
+            </select>
+        </li>
+        <button id="youtubeSearch"> Search </button>
+    </div>
+
+    <!-- Input -->
+    <div class="input_container">
+        <h4> Input </h4>
+        <div id ="input" class="data">
+        </div>
+    </div>
+     <!-- Input //-->
+
+     <!-- Output -->
+    <div class="output_container">
+        <h4> Output </h4>
+        <div id ="output" class="data">
+        </div>
+    </div>
+     <!-- Input //-->
 </body>
+    <script type="text/javascript" src="libs/jquery.js"></script>
+    <script type="text/javascript" src="build/bundle.js"></script>
+    <script type="text/javascript" src="test.js"></script>
 </html>
