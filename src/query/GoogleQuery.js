@@ -13,7 +13,7 @@ var GoogleQuery = function (obj) {
 			switch (ob) {
 				case 'basic': gQuery += obj[ob] + ' '; break;
 				case 'site': gQuery += "site:" + obj[ob] + ' '; break;
-				case 'type': gQuery += "filetype:" + obj[ob] + ' '; break;
+				case 'file': gQuery += "filetype:" + obj[ob] + ' '; break;
 			}
 		else {
 			switch (ob) {

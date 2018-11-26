@@ -1,5 +1,9 @@
 $( function(){
+<<<<<<< HEAD
+
+=======
     
+>>>>>>> e53eedaa0b26c4da4f34e0aedf5202ff13a5b9c7
     // Tab Control
     var $tab = $('.tab'),
         $tabContent = $('.tab_content');
@@ -44,10 +48,17 @@ $( function(){
 
         $or.each( function () {
             var v = $(this).val();
+<<<<<<< HEAD
+            if(v.length) orValues.push(v);
+        })
+
+        if (basicValue.length) params['basic'] = basicValue;
+=======
             if(v.length) orValues.push(v);       
         })
 
         if (basicValue.length) params['basic'] = basicValue;  
+>>>>>>> e53eedaa0b26c4da4f34e0aedf5202ff13a5b9c7
         if (excludeValues.length) params['exclude'] = excludeValues;
         if (includeValues.length) params['include'] = includeValues;
         if (exactValues.length) params['exact'] = exactValues;
@@ -77,7 +88,11 @@ $( function(){
     $('#naverSearch').on('click', function () {
         var params = getSharedParams();
         fill_to_HTML("input", params);
+<<<<<<< HEAD
+        fill_to_HTML("output", Wever.NaverQuery(params));
+=======
         $('#output').html(Wever.NaverQuery(params));
+>>>>>>> e53eedaa0b26c4da4f34e0aedf5202ff13a5b9c7
     });
 
     // Google Search
@@ -86,6 +101,15 @@ $( function(){
 
     $('#googleSearch').on('click', function () {
         var params = getSharedParams(),
+<<<<<<< HEAD
+            fileValues = $file.val(),
+            siteValue = $site.val();
+
+        if (fileValues.length) params['file'] = fileValues;
+        if (siteValue.length) params['site'] = siteValue;
+        fill_to_HTML("input", params);
+        fill_to_HTML("output", Wever.GoogleQuery(params));
+=======
             fileValues = [],
             siteValue = $site.val();
 
@@ -98,6 +122,7 @@ $( function(){
         if (siteValue.length) params['site'] = siteValue;
         fill_to_HTML("input", params);
         $('#output').html(Wever.GoogleQuery(params));
+>>>>>>> e53eedaa0b26c4da4f34e0aedf5202ff13a5b9c7
     });
 
     // YouTube Search
@@ -134,9 +159,15 @@ $( function(){
         if (movieValues.length) params['movie'] = movieValues;
         if (playlistValues.length) params['playlist'] = playlistValues;
         if (titleValues.length) params['title'] = titleValues;
+<<<<<<< HEAD
+        if (periodValue.length) params['period'] = periodValue;
+        fill_to_HTML("input", params);
+        fill_to_HTML("output", Wever.YouTubeQuery(params));
+=======
         if (periodValue.length) params['time'] = periodValue;
         fill_to_HTML("input", params);
         $('#output').html(Wever.YouTubeQuery(params));
+>>>>>>> e53eedaa0b26c4da4f34e0aedf5202ff13a5b9c7
     });
 
     function syntaxHighlight(json) {
