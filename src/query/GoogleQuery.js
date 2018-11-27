@@ -19,7 +19,7 @@ var GoogleQuery = function (obj) {
 		else {
 			switch (ob) {
 				case 'exact': for (var a of obj[ob]) { gQuery += " \"" + a + "\""; } break;
-				case 'or': break;
+				case 'or': for (var a of obj[ob]) { gQuery += " | " + a; } break;
 				case 'exclude': for (var a of obj[ob]) { gQuery += ' -' + a + ' '; } break;
 			}
 		}
