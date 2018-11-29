@@ -2,7 +2,7 @@
  * @author guyeol, jeong
  * Copyright © 2018 guyeol_jeong. All rights reserved.
  */
-var _ = (function () {
+var weverCookie = (function () {
     return {
         /*
          * Set Function :
@@ -23,7 +23,6 @@ var _ = (function () {
          * Returns the value corresponding to the key value that was input in the parameter.
          * Returns null if there is no key or no value.
          */
-
         get: function (key) {
             var site = key + '=',
                 cookies = document.cookie,
