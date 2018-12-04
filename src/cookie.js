@@ -2,7 +2,7 @@
  * @author guyeol, jeong
  * Copyright © 2018 guyeol_jeong. All rights reserved.
  */
-var _ = (function () {
+var weverCookie = (function () {
     return {
         /*
          * Set Function :
