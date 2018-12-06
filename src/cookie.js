@@ -23,7 +23,6 @@ var weverCookie = (function () {
          * Returns the value corresponding to the key value that was input in the parameter.
          * Returns null if there is no key or no value.
          */
-
         get: function (key) {
             var site = key + '=',
                 cookies = document.cookie,
