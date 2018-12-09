@@ -5,195 +5,467 @@
 	<title> 테스트 용도</title>
 </head>
 	<style type="text/css">
-		.tab_content {
-            width: 100%;
-			display: none;
-            font-size: 14px;
-		}
-        .tab_content.opend {
-            display: block;
-        }
-        .tab_container {
-            width: 100%;
-            height: 30px;
-            border-width: 1px;
-            border-style: solid;
-            border-color: black;
-            margin-bottom: 20px;
-        }
-        .tab {
-            display: inline-block;
-            float:left;
-            width: 80px;
-            height: 30px;
-            border-width: 0px 1px 0px 0px;
-            border-style: solid;
-            border-color: black;
-            color:black;
-            background: white;
-        }
-        .tab a {
-            line-height: 30px;
-        }
-        .tab.opend {
-            background: black;
-            color:white;
-        }
-        .shared_content {
-            width: 100%;
-            font-size: 14px;
-        }
-        .output {
-            width: 100%;
-        }
-        .data {
-            width: 100%;
-            min-height: 80px;
-            border-width: 1px;
-            border-style: dotted;
-        }
-        pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
-        .string { color: green; }
-        .number { color: darkorange; }
-        .boolean { color: blue; }
-        .null { color: magenta; }
-        .key { color: red; }
-        li {
-            border-width: 0px 0px 1px 0px;
-            border-color:gray;
-            border-style: dotted;
-        }
+    html,body {
+        overflow: hidden;
+        margin:0px;
+        padding:0px;
+        height: 100%; overflow: hidden;
+        font-family: NanumSquareOTFEB;
+    }
+    input:focus{
+    outline: none;
+}
+
+    .tag_outer {
+        display: inline-block;
+        float: left;
+        height: 20px;
+        margin: 4.2px 0px 4.3px 12px;
+        border-radius: 5px;
+        padding-left: 5px;
+        padding-right: 2px;
+        padding: 5px;
+    }
+    .top {
+        height: 58px;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.12);
+        background-color: #fdfdff;
+    }
+    .top img {
+        width: 40px;
+        height: 40px;
+        padding: 9px 0px 9px 10px;
+        float:left;
+    }
+    .top .title {
+        font-size: 18px;
+        font-size: 18px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: -0.2px;
+        color: #4a4a4a;
+        padding-top:19px;
+        float:left;
+    }
+    .tab {
+        position: relative;
+        width: 100%;
+        height: 75px;
+    }
+    .tab .item {
+        width: 33.3%;
+        height: 45px;
+        float:left;
+        padding-top: 30px;
+        cursor: pointer;
+    }
+    .tab .item .icon {
+        width: 28px;
+        height: 28px;
+        margin: 0 auto;
+    }
+    .cur_tab {
+        width: 33.3%;
+        height: 3px;
+        background-color:#1cc49f;
+        position: absolute;
+        left:0px;
+        bottom: 0px;
+    }
+   /* .tab .item.on {
+        border-color: #1cc49f;
+    }*/
+    .input_section {
+        width: 100%;
+        padding-top: 60px;
+    }
+    .input_section .wrap {
+        margin: 0 auto;
+        width : 340px;      
+        min-height: 48px;
+        border: solid 3px #1cc49f;
+        display: table;
+        max-height: 99px;
+    }
+    .input_section .wrap input[type=text] {
+        background: none;
+        width : 290px;
+        height: 44px;
+        border-width: 0px;
+    }
+    .input_section .wrap img {
+        width: 24px;
+        height: 24px;
+    }
+    .shared_tag {
+        width: 100%;
+        margin-top: 11px;
+        padding-top:51px;
+        padding-left: 51px;
+        padding-bottom: 40px;
+        font-size: 13.5px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+    }
+    #historyList {
+        height: 100px;
+        overflow-y: scroll;
+    }
+    #historyList span{
+        border-radius: 4px;
+        padding: 7px;
+        letter-spacing: -0.2px;
+        color: #ffffff;
+        margin-right: 12px;
+        display: inline-block;
+        cursor:pointer;
+        font-size: 13.5px;
+            vertical-align: middle;
+    }
+    li {
+       list-style-type : none;
+       position: relative;
+    }
+    #historyList img{
+        width: 22px;
+        height: 22px;
+    }
+     #historyList .right{
+        position: absolute;
+        top:0px;
+        right: 0px;
+        padding: 3px;
+     }
+    .shared_tag span {
+        border-radius: 4px;
+        padding: 7px;
+        letter-spacing: -0.2px;
+        color: #ffffff;
+        margin-right: 12px;
+        display: inline-block;
+        cursor:pointer;
+    }
+    .shared_tag img {
+        width: 15px;
+        height: 15px;
+        vertical-align: middle;
+    }
+    .exact {
+        background-color : #5466ff;
+    }
+    .include {
+        background-color: #ffb60b;
+    }
+    .exclude {
+        background-color: #ff5f0b;
+    }
+    .or {
+        background-color: #30ceaa;
+    }
+    .tab_contents {
+        width: 300%;
+        position: relative;
+        padding:0px 51px 0px 51px;
+    }
+    .dist_tag {
+        font-size: 13.5px;
+        border-radius: 4px;
+        background-color: #000000;
+        border-radius: 4px;
+        padding: 7px;
+        letter-spacing: -0.2px;
+        color: #ffffff;
+        margin-right: 12px;
+        display: inline-block;
+        cursor: pointer;
+    }
+    .dist_tag img {
+        width: 15px;
+        height: 15px;
+        vertical-align: middle;
+    }
+    #naver_content {
+        position: absolute;
+        left:0px;
+        top:0px;
+    }
+    #google_content {
+        position: absolute;
+        left: 100%;
+        top:0px;
+    }
+    #youtube_content {
+        position: absolute;
+        left: 200%;
+        top:0px;
+    }
+    #search_btn {
+        width: 48px;
+        /*height: 48px;*/
+        background-color: #1cc49f;
+       /* display: inline-block;*/
+       display: table-cell;
+        /*float:right;*/
+            vertical-align: middle;
+    }
+    #search_btn img {
+        padding: 13px 12px 13px 14px;
+    }
+    .history {
+        background-color :#ffffff;
+        position: absolute;
+        bottom : -200px;
+        height: 200px;
+        width: 100%;
+        box-shadow: 0 -1px 5px 0 rgba(0, 0, 0, 0.15);
+        padding-left: 25px:
+        padding-right: 25px;
+    }
+    .history.up {
+        bottom: 0px;
+    }
+    #openBtn {
+        position: relative;
+        top: -25px;
+        left: calc(50% - 12px);
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+    }
+    #historyMent {
+        position: relative;
+        display: inline-block;
+        top: -69px;
+        width: 140px;
+        left: calc(50% - 70px);
+        text-align: center;
+        font-family: NanumSquareOTFEB;
+        font-size: 16px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: -0.2px;
+        color: #979797;
+    }
+    #historyMent img {
+        width: 18px;
+        height: 18px;
+    }
+    .division {
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+        height: 1.5px;
+        background-color : #dddddd;
+    }
+    .history_top {
+        margin-top: -37px;
+        height: 36.5px;
+        font-size: 10px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 22px;
+        letter-spacing: -0.1px;
+        text-align: center;
+        color: #979797;
+    }
+    .history_top .left{
+        float : left;
+        width : 100px;
+    }
+    .history_top .right{
+        float : right;
+        width: 100px;
+    }
+    /*Switch*/
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 40px;
+        height: 22px;
+    }
+    .switch input { 
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 1px;
+  bottom: 1px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #1cc49f;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #1cc49f;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(18px);
+  -ms-transform: translateX(18px);
+  transform: translateX(18px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+#inputTarget {
+    position: relative;
+    /*display: inline-block;*/
+        /*display: table-cell;*/
+        display: block;
+    height: 100%;
+    width: 290px;
+    /*height: 30px;*/
+    padding-top: 8px;
+    padding-bottom: 8px;
+    vertical-align: top;
+    padding-right: 4px;
+    max-height: 93px;
+    overflow-y: auto;
+}
+#inputTarget img {
+    width: 17px;
+    height: 17px;
+    vertical-align: middle;
+}
+.inputTag {
+    width: 80px;
+    height: 20px;
+    border-radius: 5px;
+    color : white;
+    display: inline;
+    /*margin-top: 8.5px;
+    margin-left: 12px;
+    padding: 5px;
+    margin: 4.2px 0px 4.3px 12px;*/
+}
+.history_top .right img{
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
+.file_select {
+padding-left: 20px;
+    height: 30px;
+    background-color: #000000;
+    border: none;
+    color: #ffffff;
+    /*display: inline-block;*/
+}
+select:focus{
+    outline: none;
+  }  
 	</style>
+
+
 <body>
-    <div>
-        <h4> Smart Search Test</h4>
+    <div class = "top">
+        <img src="images/sm_logo.svg">
+        <span class= "title">Smart Search</span>
     </div>
-    <!-- Tab -->
-    <div class="tab_container">
-        <div data-name="naver" class="tab opend">
-            <a> 네이버 </a>
+    <div class= "tab">
+        <div class= "item on" data-name= "naver">
+            <div class ="icon" > <img src ="images/icons/naver-icon.png" style="width: 100%;height: 100%;"> </div>
         </div>
-        <div data-name="google" class="tab">
-            <a> 구글 </a>
+        <div class= "item" data-name= "google">
+            <div class ="icon"> <img src ="images/icons/google-icon.png" style="width: 100%;height: 100%;"> </div>
         </div>
-        <div data-name="youtube" class="tab">
-            <a> 유튜브 </a>
+        <div class= "item" data-name= "youtube">
+            <div class ="icon"> <img src ="images/icons/youtube-icon.png" style="width: 100%;height: 100%;"> </div>
         </div>
+        <div class="cur_tab"> </div>
     </div>
-    <!-- Tab //-->
-
-    <!-- Shared -->
-    <div class="shared_content">
-        <li>
-            <span> 기본검색어 : </span> <input id="basic" type="text" size="10">
-        </li>
-        <li>
-            <span> 정확 : </span>
-            <input class="exact" type="text" size="10">
-            <input class="exact" type="text" size="10">
-            <input class="exact" type="text" size="10">
-        </li>
-        <li>
-            <span> 포함 : </span>
-            <input class="include" type="text" size="10">
-            <input class="include" type="text" size="10">
-            <input class="include" type="text" size="10">
-        </li>
-        <li>
-            <span> 제외 : </span>
-            <input class="exclude" type="text" size="10">
-            <input class="exclude" type="text" size="10">
-            <input class="exclude" type="text" size="10">
-        </li>
-        <li>
-            <span> 또는 : </span>
-            <input class="or" type="text" size="10">
-            <input class="or" type="text" size="10">
-            <input class="or" type="text" size="10">
-        </li>
-    </div>
-    <!-- Shared //-->
-
-	<div id="naver_content" class="tab_content opend">
-        <button id="naverSearch"> Search </button>
-	</div>
-    <div id="google_content" class="tab_content">
-        <li>
-            <span> 사이트 : </span> <input  id="site" type="text">
-        </li>
-        <li>
-            <span> 파일 : </span>
-            <select class = "type">
-                <option value = "">none</option>
-                <option value = "pdf">pdf</option>
-                <option value = "ps">ps</option>
-                <option value = "dwf">dwf</option>
-                <option value = "kml">kml</option>
-                <option value = "kmz">kmz</option>
-                <option value = "xls">xls</option>
-                <option value = "ppt">ppt</option>
-                <option value = "doc">doc</option>
-                <option value = "rtf">rtf</option>
-                <option value = "swf">swf</option>
-            </select>
-        </li>
-        <button id="googleSearch"> Search </button>
-    </div>
-    <div id="youtube_content" class="tab_content">
-        <li>
-            <span> 채널 : </span>
-            <input class="channel" type="text" size = "10">
-            <input class="channel" type="text" size = "10">
-            <input class="channel" type="text" size = "10">
-        </li>
-        <li>
-            <span> 영화 : </span>
-            <input class="movie" type="text" size ="10">
-            <input class="movie" type="text" size ="10">
-            <input class="movie" type="text" size ="10">
-        </li>
-        <li>
-            <span> 재생목록 : </span>
-            <input class="playlist" type="text" size="10">
-            <input class="playlist" type="text" size="10">
-            <input class="playlist" type="text" size="10">
-        </li>
-        <li>
-            <span> 제목 : </span>
-            <input class="title" type="text" size ="10">
-            <input class="title" type="text" size ="10">
-            <input class="title" type="text" size ="10">
-        </li>
-        <li>
-            <span> 기간 : </span>
-            <select id = "period">
-                <option value = "">none</option>
-                <option value = "hour">hour</option>
-                <option value = "week">week</option>
-                <option value = "month">month</option>
-                <option value = "year">year</option>
-            </select>
-        </li>
-        <button id="youtubeSearch"> Search </button>
-    </div>
-
-    <!-- Input -->
-    <div class="input_container">
-        <h4> Input </h4>
-        <div id ="input" class="data">
+    <div class ="input_section">
+        <div class ="wrap">
+            <div id="inputTarget">
+               
+            </div>
+            <!--input type="text"-->
+            <div id = "search_btn">
+                <img src="images/icons/search_btn.svg">
+            </div>
         </div>
     </div>
-     <!-- Input //-->
-
-     <!-- Output -->
-    <div class="output_container">
-        <h4> Output </h4>
-        <div id ="output" class="data">
+    <div class ="shared_tag" >
+        <span class ="exact"> <img src="images/icons/exact_icon.svg"> 정확 </span>
+        <span class ="include"> <img src="images/icons/include_icon.svg"> 포함 </span>
+        <span class ="exclude"> <img src="images/icons/exclude_icon.svg"> 제외 </span>
+        <span class ="or"> <img src="images/icons/or_icon.svg"> 또는 </span>
+    </div>
+    <div class = "tab_contents" >
+        <div id ="naver_content" data-seq= "0" data-name ="naver" class = "dist_cnt">
+        </div>
+        <div id ="google_content" data-seq= "1" data-name ="google" class = "dist_cnt">
+            <span class="dist_tag" id ="siteTag"> <img src="images/icons/site_icon.svg"> 사이트 </span>
+            <span class="dist_tag" id="fileTag" style="position: relative;"> <img src="images/icons/file_icon.svg"> 파일 </span>
+        </div>
+        <div id ="youtube_content" data-seq= "2" data-name ="youtube" class = "dist_cnt">
+            <div>
+            <span class="dist_tag youtube_un0" id="channel"> <img src="images/icons/channel_icon.svg"> 채널 </span>
+            <span class="dist_tag youtube_un0" id="playlist"> <img src="images/icons/playlist_icon.svg"> 재생목록 </span>   
+            <span class="dist_tag youtube_un0" id="movie"> <img src="images/icons/movie_icon.svg"> 영화 </span>  
+            </div>
+            <div style="margin-top: 12px;">
+            <span class="dist_tag youtube_un0" id="title"> <img src="images/icons/title_icon.svg"> 제목 </span>
+            <span class="dist_tag" id="timeTag"> <img src="images/icons/time_icon.svg"> 기간 </span> 
+            </div> 
         </div>
     </div>
-     <!-- Input //-->
+    <div class ="history">
+        <div id ="openBtn"> <img src= "images/history_open.svg"> </div>
+        <div id = "historyMent"> <img src ="images/icons/history_icon.svg"> 검색 기록</div>
+        <div class="history_top">
+        <div class ="left"> 
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+            </label>
+            <span>자동 저장</span>
+        </div>
+            <span class = "right"><img src="images/icons/trash_icon.svg">삭제</span>
+        </div>
+        <div class="division"> </div>
+        <ul id = "historyList">
+            <!--li> <span class="exact"> 네이버 </span> <span class="include"> 네이버 </span> <span class ="right"><img src= "images/icons/history_list_del.svg"> </span></li-->
+   
+        </ul>
+    </div>
 </body>
     <script type="text/javascript" src="libs/jquery.js"></script>
     <script type="text/javascript" src="build/bundle.js"></script>
-    <script type="text/javascript" src="test.js"></script>
+    <script type="text/javascript" src="main.js"></script>
 </html>
