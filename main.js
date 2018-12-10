@@ -11,8 +11,40 @@ $(function() {
         playlistIcon: 'images/icons/playlist_icon.svg'
     };
 
+    // 검색 버튼 클릭시
+    (function() {
+
+        function collectTagData() {
+            var ret = {};
+            $('.tag_outer').each(function() {
+                var name = $(this).data('tag');
+
+                if (name === "file" || name === "time" || name === "site") {
+                    var val = $(this).children((name === "site" ? 'input' : 'select')).val();
+                    ret[name] = val;
+                } else {
+                    var val = $(this).children('input').val();
+                    if (!ret.hasOwnProperty(name)) {
+                        ret[name] = [];
+                    }
+                    ret[name].push(val);
+                }
+
+            });
+            return ret;
+        }
+
+        $('#search_btn').on('click', function() {
+            $('.tag_outer').each(function() {
+                
+                var queryObj = collectTagData();
+                console.log(queryObj);
+            });
+        });
+    })();
+
     // Histrory(검색 기록) 영역 컨트롤
-    (function () {
+    (function() {
         var $openBtn = $('#openBtn'),
             $history = $('.history'),
             opened = false;
@@ -107,25 +139,26 @@ $(function() {
         });
     })();
 
-    /*
-     * 태그 생성
-     */
+    // 태그 outer <div> 생성
     function $TagOuter(cls, css) {
         cls = cls || "";
         css = css || {};
         return $('<div />').attr({'class': 'tabDel tag_outer ' + cls}).css(css);
     }
 
+    // 태그 <input type=text> 생성
     function $TagInput(cls, css) {
         cls = cls || "";
         css = css || {};
         return $('<input type = "text" />').attr({'class': 'inputTag ' + cls}).css(css);
     }
 
+    // 태그 삭제 버튼 생성
     function $TagDel() {
         return $('<img>').attr({'src': ImgSrc.tagDel});
     }
 
+    // 태그 <select> 생성
     function $TagSelect(cls, css, options) {
         cls = cls || "";
         css = css || {};
@@ -136,6 +169,7 @@ $(function() {
         return $sel;
     }
 
+    // 태그 <img> 생성
     function $Img(iconSrc, css) {
         css = css || {};
         return $('<img>').attr({src: iconSrc}).css(css);
@@ -164,7 +198,6 @@ $(function() {
      */
     (function() {
         var $inputTarget = $('#inputTarget'),
-            $searchBtn = $('#search_btn'),
             sharedInputCSS = {
                 'width': '20px',
                 'height': '20px',
@@ -173,7 +206,9 @@ $(function() {
 
         // 공통 태그 클릭시
         $('.shared_tag span').on('click', function () { 
-            var $tag = $TagOuter($(this).attr('class')).appendTo($inputTarget);
+            var $tag = $TagOuter($(this).attr('class'))
+                .data('tag', $(this).data('tag'))
+                .appendTo($inputTarget);
             
             var $tagInput = $TagInput('', sharedInputCSS)
                     .on('input', onInput)
@@ -209,13 +244,17 @@ $(function() {
     
         // 사이트 태그
         $siteTag.on('click', function() {
+
             if ($('.uniq').length) {
                 $('.uniq').remove();
             }
-            var $tag = $TagOuter("uniq", uniqCSS).appendTo($inputTarget);
-            var $siteIcon = $Img(ImgSrc.siteIcon);
-            var $delBtn = $TagDel().on('click', () => { $tag.remove(); });
-            var $tagInput = $TagInput('', inputCSS)
+
+            var $tag = $TagOuter("uniq", uniqCSS)
+                    .data('tag', $(this).data('tag'))
+                    .appendTo($inputTarget),
+                $siteIcon = $Img(ImgSrc.siteIcon),
+                $delBtn = $TagDel().on('click', () => { $tag.remove(); }),
+                $tagInput = $TagInput('', inputCSS)
                     .on('input', onInput)
                     .keypress(onKeypress)
                     .focus( () => { $delBtn.hide(); })
@@ -225,6 +264,7 @@ $(function() {
                             $tag.remove();
                         }
                     });
+
             $tag.append($siteIcon)
                 .append($tagInput)
                 .append($delBtn);
@@ -249,15 +289,19 @@ $(function() {
         $fileTag.on('click', function() {
             if ($('.uniq').length) {
                 $('.uniq').remove();
-            }       
-            var $tag = $TagOuter("uniq", uniqCSS).appendTo($inputTarget);
-            var $fileIcon = $Img(ImgSrc.fileIcon);
-            var $select = $TagSelect('', {
-                    'background-color' : 'black',
-                    'color' : 'white',
-                    'border-width': '0px'
-                }, options);
-            var $delBtn = $TagDel().on('click', () => { $tag.remove(); });
+            }
+
+            var $tag = $TagOuter("uniq", uniqCSS)
+                    .data('tag', $(this).data('tag'))
+                    .appendTo($inputTarget),
+                $fileIcon = $Img(ImgSrc.fileIcon),
+                $select = $TagSelect('', {
+                        'background-color': 'black',
+                        'color': 'white',
+                        'border-width': '0px'
+                    }, options),
+                $delBtn = $TagDel().on('click', () => { $tag.remove(); });
+            
             $tag.append($fileIcon)
                 .append($select)
                 .append($delBtn);
@@ -275,29 +319,32 @@ $(function() {
                 'width': '20px',
                 'height': '20px',
                 'background-color': 'none'
-            };
-        
-        var options = [
-            {val: 'hour', text: '1시간 이내'},
-            {val: 'today', text: '하루 이내'},
-            {val: 'week', text: '일주일 이내'},
-            {val: 'month', text: '한달 이내'},
-            {val: 'year', text: '일년 이내'}
-        ];
+            },
+            options = [
+                {val: 'hour', text: '1시간 이내'},
+                {val: 'today', text: '하루 이내'},
+                {val: 'week', text: '일주일 이내'},
+                {val: 'month', text: '한달 이내'},
+                {val: 'year', text: '일년 이내'}
+            ];
 
         // 시간 태그
         $timeTag.on('click', function() {
             if ($('.uniq').length) {
                 $('.uniq').remove();
-            }       
-            var $tag = $TagOuter("uniq", uniqCSS).appendTo($inputTarget);
-            var $timeIcon = $Img(ImgSrc.timeIcon);
-            var $select = $TagSelect('', {
-                    'background-color' : 'black',
-                    'color' : 'white',
-                    'border-width': '0px'
-                }, options);
-            var $delBtn = $TagDel().on('click', () => { $tag.remove(); });
+            }
+
+            var $tag = $TagOuter("uniq", uniqCSS)
+                    .appendTo($inputTarget)
+                    .data('tag', $(this).data('tag')),
+                $timeIcon = $Img(ImgSrc.timeIcon),
+                $select = $TagSelect('', {
+                        'background-color' : 'black',
+                        'color' : 'white',
+                        'border-width': '0px'
+                    }, options),
+                $delBtn = $TagDel().on('click', () => { $tag.remove(); });
+
             $tag.append($timeIcon)
                 .append($select)
                 .append($delBtn);
@@ -308,12 +355,15 @@ $(function() {
             if ($('.uniq_4').length) {
                 $('.uniq_4').remove();
             }
-            var $tag = $TagOuter('uniq_4', uniqCSS).appendTo($inputTarget);
-            var $icon = $Img(ImgSrc[$(this).attr('id') + 'Icon'], {
-                'margin-right': '6px'
-            });
-            var $delBtn = $TagDel().on('click', () => { $tag.remove(); });
-            var $tagInput = $TagInput('', inputCSS)
+
+            var $tag = $TagOuter('uniq_4', uniqCSS)
+                    .appendTo($inputTarget)
+                    .data('tag', $(this).data('tag')),
+                $icon = $Img(ImgSrc[$(this).attr('id') + 'Icon'], {
+                    'margin-right': '6px'
+                }),
+                $delBtn = $TagDel().on('click', () => { $tag.remove(); }),
+                $tagInput = $TagInput('', inputCSS)
                     .on('input', onInput)
                     .keypress(onKeypress)
                     .focus( () => { $delBtn.hide(); })
@@ -323,6 +373,7 @@ $(function() {
                             $tag.remove();
                         }
                     });
+
             $tag.append($icon)
                 .append($tagInput)
                 .append($delBtn);
