@@ -2,8 +2,11 @@
  * @author guyeol, jeong
  * Copyright © 2018 guyeol_jeong. All rights reserved.
  */
-var weverCookie = (function () {
+var Cookie = (function () {
     return {
+        init: function () {
+            CookieDS.init();
+        }
         /*
          * Set Function :
          * Store the parameters in the cookie. 'site' is the key and 'query' is the value.
@@ -12,11 +15,12 @@ var weverCookie = (function () {
             var expires = new Date();
             expires.setDate(expires.getDate() + day);
             var cookies = site + '=' + JSON.stringify(query) + ';path=/';
-
             if (day !== 0) {
                 cookies += ';expires=' + expires.toGMTString() + ';';
+            } else {
+
             }
-            document.cookie = cookies;
+            CookieDs.insert(site, cookies);
         },
         /*
          * Get Function :
