@@ -4,9 +4,6 @@
  */
 var Cookie = (function () {
     return {
-        init: function () {
-            CookieDS.init();
-        }
         /*
          * Set Function :
          * Store the parameters in the cookie. 'site' is the key and 'query' is the value.
