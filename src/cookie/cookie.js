@@ -12,12 +12,8 @@ var Cookie = (function () {
             var expires = new Date();
             expires.setDate(expires.getDate() + day);
             var cookies = site + '=' + JSON.stringify(query) + ';path=/';
-            if (day !== 0) {
-                cookies += ';expires=' + expires.toGMTString() + ';';
-            } else {
-
-            }
-            CookieDs.insert(site, cookies);
+            cookies += ';expires=' + expires.toGMTString() + ';';
+            document.cookie = cookies;
         },
         /*
          * Get Function :
