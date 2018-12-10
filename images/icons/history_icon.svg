@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>5D047250-5DF3-4022-A9DA-8D74BEF034D3</title>
+    <desc>Created with sketchtool.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard-Copy-30" fill-rule="nonzero">
+            <g id="Group" transform="translate(0.000000, 1.000000)">
+                <path d="M4.48149328,14.7919424 C5.95778737,16.1994467 7.91432619,17 10,17 C14.418278,17 18,13.418278 18,9 C18,4.581722 14.418278,1 10,1 C5.64636404,1 2.10498452,4.47768323 2.00229145,8.80661969 L4.48149328,14.7919424 Z" id="Path" stroke="#979797" stroke-width="2"></path>
+                <polyline id="Path-4" stroke="#979797" stroke-width="1.5" points="10 4 10 9 14 12"></polyline>
+                <rect id="Rectangle-Copy" fill="#979797" x="0" y="8" width="5" height="2"></rect>
+            </g>
+        </g>
+    </g>
+</svg>
