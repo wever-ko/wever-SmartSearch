@@ -2,7 +2,7 @@
  * @author guyeol, jeong
  * Copyright © 2018 guyeol_jeong. All rights reserved.
  */
-var weverCookie = (function () {
+var Cookie = (function () {
     return {
         /*
          * Set Function :
@@ -50,3 +50,5 @@ var weverCookie = (function () {
         }
     };
 })();
+
+export {Cookie};
