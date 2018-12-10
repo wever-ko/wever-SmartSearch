@@ -1,3 +1,0 @@
-var LinkedList = function() {
-
-};
