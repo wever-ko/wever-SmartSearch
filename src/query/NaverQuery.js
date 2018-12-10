@@ -1,6 +1,7 @@
 /**
  * @author : heeveloper
  * @email  : zaqq1414@gmail.com
+ * Copyright © 2018 heeveloper. All rights reserved.
  */
 
 /*
