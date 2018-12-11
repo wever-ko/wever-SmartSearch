@@ -6,7 +6,7 @@
  * Structure used for a linked list storing search-query.
  * @param {Object} elem
  * @param {Object.String} elem.key : unique index of search query.
- * @param {Object} elem.value : user searched query.
+ * @param {Object.String} elem.value : user searched query.
  */
 function Node(elem) {
 	this.item = elem;
@@ -28,13 +28,12 @@ function DLinkedList() {
 		/*
 		 * Add item to the linked list.
 		 */
-		addToHead: function(item) {
-			if (!item) {
+		addToHead: function(elem) {
+			if (!elem) {
 				return;
 			}
 
-			var node = new Node(item);
-			//console.log(node.item.key);
+			var node = new Node(elem);
 
 			if (head) {
 				node.next = head;
@@ -47,9 +46,6 @@ function DLinkedList() {
 			}
 
 			length ++;
-			console.log(head);
-			console.log(length);
-			//console.log(this.toString());
 		},
 
 		/*
