@@ -4,4 +4,4 @@ import {YouTubeQuery} from './query/YouTubeQuery';
 import {NaverQuery} from './query/NaverQuery';
 import {NewTab} from './utils/NewTab';
 
-export {GoogleQuery, TwitterQuery, YouTubeQuery, NaverQuery};
+export {GoogleQuery, TwitterQuery, YouTubeQuery, NaverQuery, NewTab};
