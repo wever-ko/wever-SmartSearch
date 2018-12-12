@@ -2,10 +2,7 @@
  * @Author Guyeol, Jeong
  * Copyright © 2018 guyeol_jeong. All rights reserved.
  */
-var newTab = (function() {
-  /*
-   * @private
-   */
+var NewTab = (function() {
   let URL = {
     _protocol: 'http://',
     _prefix: '',
@@ -24,7 +21,7 @@ var newTab = (function() {
     } else if (site === 'youtube') {
       URL._prefix = 'www.youtube.com/results?search_query=';
     } else {
-      console.log('error in url prefix');
+      console.error('error in url prefix');
     }
   }
 
@@ -32,30 +29,33 @@ var newTab = (function() {
     URL._query = query;
   }
 
-  return {
-    /*
-     * @public
-     * @param {Object} args
-     * @return {NewTab} this
-     */
-    create: function(args = {}) {
-      if (typeof args !== undefined) {
-        setPrefix(args.site);
-        setQuery(args.query);
-      } else {
-        console.log('invalid parameters');
-      }
+  /*
+   * @private
+   * @param {Object} args
+   * @return {number} neg|pos
+   */
+  function create(args = {}) {
+    if (typeof args !== undefined) {
+      setPrefix(args.site);
+      setQuery(args.query);
+      return 1;
+    } else {
+      console.error('invalid parameters');
+      return -1;
+    }
+  }
 
-      return this;
-    },
+  return {
     /*
      * @public
      * @return {NewTab}
      */
-    open: function() {
-      window.open(get());
-
-      return this;
+    open: function(params) {
+      if (create(params)) {
+        window.open(get());
+      } else {
+        return this;
+      }
     }
   };
 })();
