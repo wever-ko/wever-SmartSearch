@@ -421,27 +421,49 @@ select:focus{
         </div>
     </div>
     <div class ="shared_tag" >
-        <span class ="exact"> <img src="images/icons/exact_icon.svg"> 정확 </span>
-        <span class ="include"> <img src="images/icons/include_icon.svg"> 포함 </span>
-        <span class ="exclude"> <img src="images/icons/exclude_icon.svg"> 제외 </span>
-        <span class ="or"> <img src="images/icons/or_icon.svg"> 또는 </span>
+        <span class = "exact" data-tag = "exact">
+            <img src = "images/icons/exact_icon.svg"> 정확
+        </span>
+        <span class = "include" data-tag = "include">
+            <img src = "images/icons/include_icon.svg"> 포함 
+        </span>
+        <span class = "exclude" data-tag = "exclude"> 
+            <img src="images/icons/exclude_icon.svg"> 제외 
+        </span>
+        <span class ="or" data-tag = "or">
+            <img src = "images/icons/or_icon.svg"> 또는
+        </span>
     </div>
     <div class = "tab_contents" >
         <div id ="naver_content" data-seq= "0" data-name ="naver" class = "dist_cnt">
         </div>
-        <div id ="google_content" data-seq= "1" data-name ="google" class = "dist_cnt">
-            <span class="dist_tag" id ="siteTag"> <img src="images/icons/site_icon.svg"> 사이트 </span>
-            <span class="dist_tag" id="fileTag" style="position: relative;"> <img src="images/icons/file_icon.svg"> 파일 </span>
+        <div id ="google_content" data-seq= "1" data-name = "google" class = "dist_cnt">
+            <span class= "dist_tag" id = "siteTag" data-tag = "site"> 
+                <img src="images/icons/site_icon.svg"> 사이트 
+            </span>
+            <span class = "dist_tag" id="fileTag" style="position: relative;" data-tag = "file"> 
+                <img src="images/icons/file_icon.svg"> 파일
+            </span>
         </div>
         <div id ="youtube_content" data-seq= "2" data-name ="youtube" class = "dist_cnt">
             <div>
-            <span class="dist_tag youtube_un0" id="channel"> <img src="images/icons/channel_icon.svg"> 채널 </span>
-            <span class="dist_tag youtube_un0" id="playlist"> <img src="images/icons/playlist_icon.svg"> 재생목록 </span>   
-            <span class="dist_tag youtube_un0" id="movie"> <img src="images/icons/movie_icon.svg"> 영화 </span>  
+            <span class="dist_tag youtube_un0" id="channel" data-tag = "channel"> 
+                <img src="images/icons/channel_icon.svg"> 채널 
+            </span>
+            <span class="dist_tag youtube_un0" id="playlist" data-tag = "playlist"> 
+                <img src="images/icons/playlist_icon.svg"> 재생목록 
+            </span>   
+            <span class="dist_tag youtube_un0" id="movie" data-tag = "movie"> 
+                <img src="images/icons/movie_icon.svg"> 영화 
+            </span>  
             </div>
             <div style="margin-top: 12px;">
-            <span class="dist_tag youtube_un0" id="title"> <img src="images/icons/title_icon.svg"> 제목 </span>
-            <span class="dist_tag" id="timeTag"> <img src="images/icons/time_icon.svg"> 기간 </span> 
+            <span class="dist_tag youtube_un0" id="title" data-tag = "title"> 
+                <img src="images/icons/title_icon.svg"> 제목 
+            </span>
+            <span class="dist_tag" id="timeTag" data-tag = "time"> 
+                <img src="images/icons/time_icon.svg"> 기간 
+            </span> 
             </div> 
         </div>
     </div>
