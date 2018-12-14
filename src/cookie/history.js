@@ -36,21 +36,16 @@
  	 	 * Add a searching data to the cache and update the cookie.
  	 	 *
  	 	 * @public
- 	 	 * @params {Object} params
- 	 	 * @params {String, Object} params.site, params.query
- 	 	 *
+ 	 	 * @params {String, Object} site, query
  	 	 */
- 	 	add : function(params) {
- 	 		const site = params.site,
- 	 		      query = params.query;
- 	 		      //timestamp = params.timestamp;
+ 	 	add : function(site, query) {
+
  	 		if (cache[site].length == 30) {
  	 			cache[site].pop();
  	 		}
  	 		//query.timestamp = params.timestamp;
  	 		cache[site].unshift(JSON.stringify(query));
  	 		cookie.set('history', cache);
- 	 		console.log(cookie.get());
  	 	},
 
  	 	/*
