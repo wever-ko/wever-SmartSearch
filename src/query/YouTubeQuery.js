@@ -34,9 +34,10 @@ var YouTubeQuery = function (params) {
     ret += sys1format(params.exact, '"', '" ');    // exact
     ret += sys1format(params.include, "+"," ");         // include
     ret += sys1format(params.exclude, "-", " ");         // exclude
-    ret += sys1format(params.channel, "", "channel");   // channel
-    ret += sys1format(params.movie, "", "movie");       // movie
-    ret += sys1format(params.title, "intitle");         // intitle
+    ret += sys1format(params.channel, "", ",channel");   // channel
+    ret += sys1format(params.movie, "", ",movie");       // movie
+    ret += sys1format(params.title, "intitle:");         // intitle
+    ret += sys1format(params.playlist, '', ',playlist');  //playlist
     if (params.time) ret += (", " + params.time);       // time 
     return ret;
 }
