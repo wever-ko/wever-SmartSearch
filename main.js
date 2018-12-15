@@ -11,6 +11,8 @@ $(function() {
         playlistIcon: 'images/icons/playlist_icon.svg'
     };
 
+    var curSite = 'naver';
+
     // 검색 버튼 클릭시
     (function() {
         var params = {};
@@ -51,14 +53,17 @@ $(function() {
         }
 
         $('#search_btn').on('click', function() {
-            $('.tag_outer').each(function() {
-                
+            var queryObj;
+
+            $('.tag_outer').each(function() {                
                 var queryObj = collectTagData();
-                //console.log(queryObj);
             });
             params = getSiteQuery(curSite);
             console.log(params);
+            //새탭 띄우기
             Wever.NewTab.open(params);
+            // History 추가
+            Wever.History.add(curSite, queryObj);
         });
 
     // Histrory(검색 기록) 영역 컨트롤
@@ -67,7 +72,8 @@ $(function() {
             $history = $('.history'),
             opened = false;
 
-        $openBtn.on('click', function () { // 히스토리 오픈 버튼 클릭시
+        // 히스토리 오픈 버튼 클릭시
+        $openBtn.on('click', function () { 
             $history.animate({
                 bottom: opened ? '-200px' : '0px'
             }, 200);
@@ -147,6 +153,7 @@ $(function() {
                       dn == "google" ? "33.3%" : "66.6%"
                 }, 200);
             slideTo(dn);
+            curSite = dn;
         });
     })();
 
