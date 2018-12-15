@@ -2,66 +2,62 @@
  * @Author Guyeol, Jeong
  * Copyright © 2018 guyeol_jeong. All rights reserved.
  */
+var NewTab = (function() {
+  let URL = {
+    _protocol: 'http://',
+    _prefix: '',
+    _query: ''
+  };
 
-var newTab = (function(){
-    /*
-     * @Private
-     * URL object that contains properties and getter, setter.
-     */
-    const URL = {
-      protocol: 'http://',
-      _prefix: '',
-      _query: '',
-      get toString () {
-        return this.protocol + this._prefix + this._query + '';
-      },
-      set prefix(site) {
-        if (site === 'naver') {
-          this._prefix = 'www.naver.com/search.naver?query=';
-        }
-        else if (site === 'google') {
-          this._prefix = 'www.google.com/search?q=';
-        }
-        else if (site === 'youtube') {
-          this._prefix = 'www.youtube.com/results?search_query=';
-        }
-        else {
-          console.log('error in url prefix');
-        }
-      },
-      set query(query) {
-        this._query = query;
-      }
-    };
+  function get() {
+    return URL._protocol + URL._prefix + URL._query + '';
+  }
 
-    /*
-     * @Public Functions which are revealing to USER.
-     * method chaining rule is applied to all functions.
-     */
-    return ({
-      create: create,
-      open: open
-    });
+  function setPrefix(site) {
+    if (site === 'naver') {
+      URL._prefix = 'search.naver.com/search.naver?query=';
+    } else if (site === 'google') {
+      URL._prefix = 'www.google.com/search?q=';
+    } else if (site === 'youtube') {
+      URL._prefix = 'www.youtube.com/results?search_query=';
+    } else {
+      console.error('error in url prefix');
+    }
+  }
 
+  function setQuery(query) {
+    URL._query = query;
+  }
+
+  /*
+   * @private
+   * @param {Object} args
+   * @return {number} neg|pos
+   */
+  function create(args = {}) {
+    if (typeof args !== undefined) {
+      setPrefix(args.site);
+      setQuery(args.query);
+      return 1;
+    } else {
+      console.error('invalid parameters');
+      return -1;
+    }
+  }
+
+  return {
     /*
-     * create() function creates object with specific informations.
-     * It returns object itself.
+     * @public
+     * @return {NewTab}
      */
-    function create(params) {
-      if (typeof params !== undefined) {
-        URL.prefix = params.site;
-        URL.query = params.query;
+    open: function(params) {
+      if (create(params)) {
+        window.open(get());
+      } else {
         return this;
       }
-      else {
-        console.log('invalid parameters');
-      }
     }
-    /*
-     * open() function opens a new window with query.
-     */
-    function open() {
-      window.open(URL.toString);
-      return this;
-    }
+  };
 })();
+
+export {NewTab};

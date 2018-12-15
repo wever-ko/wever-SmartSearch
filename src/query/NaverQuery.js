@@ -16,32 +16,32 @@ function NaverQuery(q){
         if(typeof q.basic == "string" && q.basic.length){
             ret += q.basic;
         }
+        
+        // Exact query
+        if(typeof q.exact == "object" && q.exact.length){
+            for(var n in q.exact){
+                ret += "+\"" + q.exact[n] + "\"";
+            }
+        }
 
         // Include query
         if(typeof q.include == "object" && q.include.length){
             for(var n in q.include){
-                ret += " +" + q.include[n];
+                ret += "+%2B" + q.include[n];
             }
         }
 
         // Exclude query
         if(typeof q.exclude == "object" && q.exclude.length){
             for(var n in q.exclude){
-                ret += " -" + q.exclude[n];
-            }
-        }
-
-        // Exact query
-        if(typeof q.exact == "object" && q.exact.length){
-            for(var n in q.exact){
-                ret += " \"" + q.exact[n] + "\"";
+                ret += "+-" + q.exclude[n];
             }
         }
 
         // Or query
         if(typeof q.or == "object" && q.or.length){
             for(var n in q.or){
-                ret += " | " + q.or[n];
+                ret += "+%7C" + q.or[n];
             }
         }
 
