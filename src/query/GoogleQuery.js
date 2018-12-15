@@ -21,6 +21,7 @@ var GoogleQuery = function (obj) {
 				case 'exact': for (var a of obj[ob]) { gQuery += " \"" + a + "\""; } break;
 				case 'or': for (var a of obj[ob]) { gQuery += " | " + a; } break;
 				case 'exclude': for (var a of obj[ob]) { gQuery += ' -' + a + ' '; } break;
+				case 'include': for (var a of obj[ob]) { gQuery += ' +' + a + ' '; } break;
 			}
 		}
 	}
