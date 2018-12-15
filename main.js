@@ -13,6 +13,7 @@ $(function() {
 
     // 검색 버튼 클릭시
     (function() {
+        var params = {};
 
         function collectTagData() {
             var ret = {};
@@ -29,22 +30,39 @@ $(function() {
                     }
                     ret[name].push(val);
                 }
-
+                
             });
             return ret;
+        }
+        
+        //사이트별 쿼리로 만들기
+        function getSiteQuery(site) {
+            var tmp = {};
+            if(site === 'naver') {
+              tmp.query = Wever.NaverQuery(collectTagData());
+            } else if (site === 'google') {
+              tmp.query = Wever.GoogleQuery(collectTagData());
+            } else {
+              tmp.query = Wever.YouTubeQuery(collectTagData());
+            }
+            tmp.site = site;
+
+            return tmp;
         }
 
         $('#search_btn').on('click', function() {
             $('.tag_outer').each(function() {
                 
                 var queryObj = collectTagData();
-                console.log(queryObj);
+                //console.log(queryObj);
             });
+            params = getSiteQuery(curSite);
+            console.log(params);
+            Wever.NewTab.open(params);
         });
-    })();
 
     // Histrory(검색 기록) 영역 컨트롤
-    (function() {
+
         var $openBtn = $('#openBtn'),
             $history = $('.history'),
             opened = false;
@@ -98,17 +116,10 @@ $(function() {
             }
         ]);
 
-        // 개별 기록 삭제
-    })();
-
-    /*
-     * Tab(탭) 영역 컨트롤
-     */
-    (function () { 
-
         var $tabItem = $('.item'),
             $distCnt = $('.dist_cnt'),
-            $curTab = $('.cur_tab');
+            $curTab = $('.cur_tab'),
+            curSite = $tabItem.data('name');
 
         // 해당 탭으로 슬라이드 
         function slideTo (n) { 
@@ -130,7 +141,7 @@ $(function() {
         // 각 탭 클릭시
         $tabItem.on('click', function () { 
             var dn = $(this).data('name');
-
+            curSite = dn;
             $curTab.animate({ 
                 left: dn == "naver" ? "0%" : 
                       dn == "google" ? "33.3%" : "66.6%"
