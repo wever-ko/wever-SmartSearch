@@ -11,8 +11,6 @@ $(function() {
         playlistIcon: 'images/icons/playlist_icon.svg'
     };
 
-    var curSite = 'naver';
-
     // 검색 버튼 클릭시
     (function() {
         var params = {};
@@ -38,14 +36,14 @@ $(function() {
         }
         
         //사이트별 쿼리로 만들기
-        function getSiteQuery(site) {
+        function getSiteQuery(site, tagObj) {
             var tmp = {};
             if(site === 'naver') {
-              tmp.query = Wever.NaverQuery(collectTagData());
+              tmp.query = Wever.NaverQuery(tagObj);
             } else if (site === 'google') {
-              tmp.query = Wever.GoogleQuery(collectTagData());
+              tmp.query = Wever.GoogleQuery(tagObj);
             } else {
-              tmp.query = Wever.YouTubeQuery(collectTagData());
+              tmp.query = Wever.YouTubeQuery(tagObj);
             }
             tmp.site = site;
 
@@ -53,17 +51,16 @@ $(function() {
         }
 
         $('#search_btn').on('click', function() {
-            var queryObj;
-
+            var queryObj = {};
             $('.tag_outer').each(function() {                
-                var queryObj = collectTagData();
+                queryObj = collectTagData();
             });
-            params = getSiteQuery(curSite);
-            console.log(params);
+            params = getSiteQuery(curSite, queryObj);
             //새탭 띄우기
             Wever.NewTab.open(params);
             // History 추가
             Wever.History.add(curSite, queryObj);
+            // History 리스트에 추가
         });
 
     // Histrory(검색 기록) 영역 컨트롤
@@ -106,21 +103,6 @@ $(function() {
             
             $historyList.append($li);
         }
-
-        addHistoryList([
-            {
-                class: 'exact',
-                content: '네이버'
-            },
-            {
-                class: 'include',
-                content: '네이버'
-            },
-            {
-                class: 'or',
-                content: '네이버'
-            }
-        ]);
 
         var $tabItem = $('.item'),
             $distCnt = $('.dist_cnt'),
