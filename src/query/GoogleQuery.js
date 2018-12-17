@@ -4,7 +4,8 @@
  */
 
 var GoogleQuery = function (obj) {
-	var gQuery = "";
+  var gQuery = "";
+  
 	for (var ob in obj) {
 		if (typeof ob === "undefined" || obj[ob].length === 0) {
 			console.log("NO");
@@ -24,7 +25,8 @@ var GoogleQuery = function (obj) {
 				case 'include': for (var a of obj[ob]) { gQuery += ' +' + a + ' '; } break;
 			}
 		}
-	}
+  }
+  
 	return gQuery;
 };
 
