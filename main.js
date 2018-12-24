@@ -11,6 +11,8 @@ $(function() {
         playlistIcon: 'images/icons/playlist_icon.svg'
     };
 
+    var curSite = 'naver';
+
     // 검색 버튼 클릭시
     (function() {
         var params = {};
@@ -56,7 +58,7 @@ $(function() {
                 queryObj = collectTagData();
             });
 
-            params = getSiteQuery(curSite);
+            params = getSiteQuery(curSite, queryObj);
 
             //새탭 띄우기
             Wever.NewTab.open(params);
