@@ -55,7 +55,9 @@ $(function() {
             $('.tag_outer').each(function() {                
                 queryObj = collectTagData();
             });
-            params = getSiteQuery(curSite, queryObj);
+
+            params = getSiteQuery(curSite);
+
             //새탭 띄우기
             Wever.NewTab.open(params);
             // History 추가
@@ -78,6 +80,9 @@ $(function() {
                 transform: !opened ? 'rotate(180deg)' : 'rotate(0deg)'
             });
             opened = !opened;
+
+            loadHistoryList(curSite);
+
         });
 
         // 검색 기록 로드
@@ -104,10 +109,47 @@ $(function() {
             $historyList.append($li);
         }
 
+        function loadHistoryList(paramSite) {
+           // var $li = $('<li></li>'),
+                var list = Wever.History.getAll(paramSite);
+
+            //console.log(list);
+
+            for (var key in list) {
+                var $li = $('<li></li>');
+                for (var key2 in list[key]) {
+                    for ( var value in list[key][key2]) {
+                         $('<span />', {
+                             class: key2,
+                             text: list[key][key2][value]
+                         }).appendTo($li);
+                    }
+                }
+                 $('<img>')
+                .attr({ src: ImgSrc.historyListDel })
+                .appendTo(
+                    $('<span />',{
+                        class: 'right'
+                }).appendTo($li)
+                   
+            );
+                 $li.on('click', function () {
+                        for( var i = 0; i < $(this).children.length; i++ ){
+                            console.log($(this).children[i]);
+                        }
+                        console.log()
+                    });
+                $historyList.append($li);
+            }
+
+   
+            
+            //$historyList.append($li);
+        }
+
         var $tabItem = $('.item'),
             $distCnt = $('.dist_cnt'),
-            $curTab = $('.cur_tab'),
-            curSite = $tabItem.data('name');
+            $curTab = $('.cur_tab');
 
         // 해당 탭으로 슬라이드 
         function slideTo (n) { 
@@ -120,7 +162,8 @@ $(function() {
                 $(this).animate({ 
                     left: seqNum == sn ? "51px" :
                           seqNum > sn ? "-100%" : "100%"
-                }, 200);    
+                }, 200);  
+                $('li').remove();  
             });
             // 탭 이동시 삭제 되어야할 클래스
             $('.tabDel').remove();  
