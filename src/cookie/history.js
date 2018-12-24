@@ -43,8 +43,9 @@
  	 		if (cache[site].length == 30) {
  	 			cache[site].pop();
  	 		}
- 	 		//query.timestamp = params.timestamp;
- 	 		cache[site].unshift(JSON.stringify(query));
+
+ 	 		//cache[site].unshift(JSON.stringify(query));
+ 	 		cache[site].unshift(query);
  	 		cookie.set('history', cache);
  	 	},
 
@@ -82,6 +83,7 @@
  	 	 * @return {Array | null} If the history is empty, return null.
  	 	 */
  	 	getAll : function(site) {
+ 	 		console.log('getAll called');
  	 		return (cache[site].length == 0) ? null : cache[site];
  	 	}
  	 };
