@@ -114,7 +114,8 @@ $(function() {
             $('<img>')
                 .attr({ src: ImgSrc.historyListDel })
                 .on('click', function(){
-
+                    Wever.History.delete(curSite, $(this).parent().parent().index());
+                    $(this).parent().parent().remove();
                 })
                 .appendTo(
                     $('<span />',{
@@ -141,7 +142,8 @@ $(function() {
                 $('<img>')
                     .attr({ src: ImgSrc.historyListDel })
                     .on('click', function() {
-                        console.log($(this).closest("li"));
+                        Wever.History.delete(curSite, $(this).parent().parent().index());
+                        $(this).parent().parent().remove();
                     })
                     .appendTo(
                         $('<span />',{
@@ -186,7 +188,6 @@ $(function() {
         });
 
         // 체크박스 이벤트 핸들러
-        
         $('#checkbox')
             .prop('checked', true)
             .change(function() {
@@ -270,7 +271,7 @@ $(function() {
                 'height': '20px',
                 'background-color': 'none'
             };
-
+        
         // 공통 태그 클릭시
         $('.shared_tag span').on('click', function () { 
             var $tag = $TagOuter($(this).attr('class'))
