@@ -114,32 +114,36 @@
     #historyList {
         height: 100px;
         overflow-y: scroll;
+        padding: 0;
     }
     #historyList span{
         border-radius: 4px;
         padding: 7px;
         letter-spacing: -0.2px;
         color: #ffffff;
-        margin-right: 12px;
+        margin-right: 5px;
         display: inline-block;
         cursor:pointer;
         font-size: 13.5px;
-            vertical-align: middle;
+        /*vertical-align: middle;*/
     }
     li {
        list-style-type : none;
        position: relative;
+       margin-bottom: 3px;
     }
     #historyList img{
         width: 22px;
         height: 22px;
     }
-     #historyList .right{
+    #historyList .right{
         position: absolute;
         top:0px;
         right: 0px;
         padding: 3px;
-     }
+        margin-right: 30px;
+        cursor: pointer;
+    }
     .shared_tag span {
         border-radius: 4px;
         padding: 7px;
@@ -222,8 +226,11 @@
         height: 200px;
         width: 100%;
         box-shadow: 0 -1px 5px 0 rgba(0, 0, 0, 0.15);
-        padding-left: 25px:
+        padding-left: 25px;
         padding-right: 25px;
+    }
+    .history.right {
+        cursor: pointer;
     }
     .history.up {
         bottom: 0px;
@@ -412,7 +419,6 @@ select:focus{
     <div class ="input_section">
         <div class ="wrap">
             <div id="inputTarget">
-               
             </div>
             <!--input type="text"-->
             <div id = "search_btn">
@@ -473,16 +479,15 @@ select:focus{
         <div class="history_top">
         <div class ="left"> 
             <label class="switch">
-                <input type="checkbox">
+                <input type="checkbox" id = "checkbox">
                 <span class="slider round"></span>
             </label>
             <span>자동 저장</span>
         </div>
-            <span class = "right"><img src="images/icons/trash_icon.svg">삭제</span>
+            <span class = "right" id = "historyDelAll"><img src="images/icons/trash_icon.svg">삭제</span>
         </div>
         <div class="division"> </div>
         <ul id = "historyList">
-            <!--li> <span class="exact"> 네이버 </span> <span class="include"> 네이버 </span> <span class ="right"><img src= "images/icons/history_list_del.svg"> </span></li-->
    
         </ul>
     </div>

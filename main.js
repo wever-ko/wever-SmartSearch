@@ -15,7 +15,15 @@ $(function() {
 
     // 검색 버튼 클릭시
     (function() {
-        var params = {};
+        var params = {}, isChecked = true;
+
+        function isEmpty(obj) {
+            for(var prop in obj) {
+                if(obj.hasOwnProperty(prop))
+                    return false;
+            }
+            return true;
+        }
 
         function collectTagData() {
             var ret = {};
@@ -57,17 +65,22 @@ $(function() {
             $('.tag_outer').each(function() {                
                 queryObj = collectTagData();
             });
-
-            params = getSiteQuery(curSite, queryObj);
-
-            //새탭 띄우기
-            Wever.NewTab.open(params);
-            // History 추가
-            Wever.History.add(curSite, queryObj);
-            // History 리스트에 추가
+            if (isEmpty(queryObj)) {
+                alert('검색어를 입력해주세요!');
+            } else {
+                params = getSiteQuery(curSite, queryObj);
+                //새탭 띄우기
+                Wever.NewTab.open(params);
+                if(isChecked) {
+                    // History 추가
+                    Wever.History.add(curSite, queryObj);
+                    // History 리스트에 추가
+                    addHistoryList(queryObj);
+                }
+            }
         });
 
-    // Histrory(검색 기록) 영역 컨트롤
+        // Histrory(검색 기록) 영역 컨트롤
 
         var $openBtn = $('#openBtn'),
             $history = $('.history'),
@@ -82,40 +95,38 @@ $(function() {
                 transform: !opened ? 'rotate(180deg)' : 'rotate(0deg)'
             });
             opened = !opened;
-
-            loadHistoryList(curSite);
-
         });
 
         // 검색 기록 로드
         var $historyList = $('#historyList');
+        loadHistoryList(curSite);
 
         function addHistoryList(lie) {
             var $li = $('<li> </li>');
 
-            for (var obj of lie) {
+            for (var obj of Object.keys(lie)) {
                 $('<span />', {
-                    class: obj.class,
-                    text: obj.content
+                    class: obj,
+                    text: lie[obj]
                 }).appendTo($li);
             }
 
             $('<img>')
                 .attr({ src: ImgSrc.historyListDel })
+                .on('click', function(){
+
+                })
                 .appendTo(
                     $('<span />',{
                         class: 'right'
                 }).appendTo($li)
             );
             
-            $historyList.append($li);
+            $historyList.prepend($li);
         }
 
         function loadHistoryList(paramSite) {
-           // var $li = $('<li></li>'),
-                var list = Wever.History.getAll(paramSite);
-
-            //console.log(list);
+            var list = Wever.History.getAll(paramSite);
 
             for (var key in list) {
                 var $li = $('<li></li>');
@@ -127,26 +138,24 @@ $(function() {
                          }).appendTo($li);
                     }
                 }
-                 $('<img>')
-                .attr({ src: ImgSrc.historyListDel })
-                .appendTo(
-                    $('<span />',{
-                        class: 'right'
-                }).appendTo($li)
-                   
-            );
-                 $li.on('click', function () {
-                        for( var i = 0; i < $(this).children.length; i++ ){
-                            console.log($(this).children[i]);
-                        }
-                        console.log()
-                    });
+                $('<img>')
+                    .attr({ src: ImgSrc.historyListDel })
+                    .on('click', function() {
+                        console.log($(this).closest("li"));
+                    })
+                    .appendTo(
+                        $('<span />',{
+                            class: 'right'
+                        }).appendTo($li)
+                    );
+                $li.on('click', function () {
+                    for( var i = 0; i < $(this).children.length; i++ ){
+                        console.log($(this).children()[i]);
+                    }
+                    console.log()
+                });
                 $historyList.append($li);
             }
-
-   
-            
-            //$historyList.append($li);
         }
 
         var $tabItem = $('.item'),
@@ -170,6 +179,19 @@ $(function() {
             // 탭 이동시 삭제 되어야할 클래스
             $('.tabDel').remove();  
         }
+        // 전체 삭제 버튼 클릭
+        $('#historyDelAll').on('click', function() {
+            Wever.History.deleteAll(curSite);
+            $('#historyList').empty();
+        });
+
+        // 체크박스 이벤트 핸들러
+        
+        $('#checkbox')
+            .prop('checked', true)
+            .change(function() {
+                $('#checkbox').is(":checked") === true ? isChecked = true : isChecked = false;
+            });
 
         // 각 탭 클릭시
         $tabItem.on('click', function () { 
@@ -266,7 +288,10 @@ $(function() {
                         }
                     });
 
-            var $delBtn = $TagDel().on('click', () => { $tag.remove(); });
+            var $delBtn = $TagDel().on('click', () => { 
+                $tag.remove(); 
+                console.log('delete btn');
+            });
 
             $tag.append($tagInput).append($delBtn);
             $tagInput.focus();
