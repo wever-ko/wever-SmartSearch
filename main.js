@@ -160,10 +160,10 @@ $(function () {
           );
 
         $li.on('click', function () {
-          for (var i = 0; i < $(this).children.length; i++) {
+          for (var i = 0; i <= $(this).children.length; i++) {
             console.log($(this).children()[i]);
+            // TODO 히스토리 클릭 시 재검색 구현
           }
-          console.log()
         });
 
         $historyList.append($li);
@@ -285,13 +285,12 @@ $(function () {
         'height': '20px',
         'background-color': 'none'
       };
-
-    // 공통 태그 클릭시
-    $('.shared_tag span').on('click', function () {
-      var $tag = $TagOuter($(this).attr('class'))
-        .data('tag', $(this).data('tag'))
+    
+    // 검색창 클릭 (기본검색어)
+    $inputTarget.on('click', function () {
+      var $tag = $TagOuter('basic')
+        .data('tag', 'basic')
         .appendTo($inputTarget);
-
       var $tagInput = $TagInput('', sharedInputCSS)
         .on('input', onInput)
         .keypress(onKeypress)
@@ -305,7 +304,30 @@ $(function () {
 
       var $delBtn = $TagDel().on('click', () => {
         $tag.remove();
-        console.log('delete btn');
+      });
+
+      $tag.append($tagInput).append($delBtn);
+      $tagInput.focus();
+    });
+
+    // 공통 태그 클릭시
+    $('.shared_tag span').on('click', function () {
+      var $tag = $TagOuter($(this).attr('class'))
+        .data('tag', $(this).data('tag'))
+        .appendTo($inputTarget);
+      var $tagInput = $TagInput('', sharedInputCSS)
+        .on('input', onInput)
+        .keypress(onKeypress)
+        .focus(() => { $delBtn.hide(); })
+        .focusout(function () {
+          $delBtn.show();
+          if ($(this).val().length <= 0) {
+            $tag.remove();
+          }
+        });
+
+      var $delBtn = $TagDel().on('click', () => {
+        $tag.remove();
       });
 
       $tag.append($tagInput).append($delBtn);
@@ -448,7 +470,7 @@ $(function () {
           'margin-right': '6px'
         }),
         $delBtn = $TagDel().on('click', () => { $tag.remove(); }),
-        
+
         $tagInput = $TagInput('', inputCSS)
           .on('input', onInput)
           .keypress(onKeypress)

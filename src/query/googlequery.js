@@ -12,13 +12,13 @@ var GoogleQuery = function (obj) {
 		}
 		else if (typeof obj[ob] === "string") {
 			switch (ob) {
-				case 'basic': gQuery += obj[ob]; break;
 				case 'site': gQuery += " site:" + obj[ob] + ' '; break;
 				case 'file': gQuery += " filetype:" + obj[ob] + ' '; break;
 			}
 		}
 		else {
 			switch (ob) {
+				case 'basic': for (var a of obj[ob]) { gQuery += a + ' '} break;
 				case 'exact': for (var a of obj[ob]) { gQuery += " \"" + a + "\""; } break;
 				case 'or': for (var a of obj[ob]) { gQuery += " | " + a; } break;
 				case 'exclude': for (var a of obj[ob]) { gQuery += ' -' + a + ' '; } break;
