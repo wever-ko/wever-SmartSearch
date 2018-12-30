@@ -13,8 +13,9 @@ function NaverQuery(q){
   var ret = "";
 
   // Basic query
-  if(typeof q.basic == "string" && q.basic.length){
-    ret += q.basic;
+  if(typeof q.basic == "object" && q.basic.length){
+    for(var n in q.basic){
+      ret += q.basic[n] + " ";
   }
         
   // Exact query
