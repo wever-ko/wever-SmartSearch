@@ -83,7 +83,6 @@
  	 	 * @return {Array | null} If the history is empty, return null.
  	 	 */
  	 	getAll : function(site) {
- 	 		console.log('getAll called');
  	 		return (cache[site].length == 0) ? null : cache[site];
  	 	}
  	 };
