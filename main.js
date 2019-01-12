@@ -63,7 +63,7 @@ $(function () {
       return tmp;
     }
 
-    $('#search_btn').on('click', function() {
+    $('#search_btn').on('click', function(e) {
       var queryObj = {};
 
       $('.tag_outer').each(function() {
@@ -83,9 +83,10 @@ $(function () {
           addHistoryList(queryObj);
         }
       }
+      e.stopPropagation();
     });
 
-    // Histrory(검색 기록) 영역 컨트롤
+    // History(검색 기록) 영역 컨트롤
     var $openBtn = $('#openBtn'),
       $history = $('.history'),
       opened = false;
@@ -93,7 +94,7 @@ $(function () {
     // 히스토리 오픈 버튼 클릭시
     $openBtn.on('click', function () {
       $history.animate({
-        bottom: opened ? '-200px' : '0px'
+        bottom: opened ? '-170px' : '0px'
       }, 200);
 
       $(this).css({
@@ -265,8 +266,13 @@ $(function () {
     return len;
   }
 
+
+  var $testSpan = $('#testSpan');
+
   function onInput() {
-    $(this).width(_getTextLen($(this).val(), 8, 10) + 20);
+    $testSpan.html($(this).val());
+    //$(this).width(_getTextLen($(this).val(), 8, 10) + 20);
+    $(this).width($testSpan.width() + 3);
   }
 
   function onKeypress(e) {
@@ -287,7 +293,8 @@ $(function () {
       };
     
     // 검색창 클릭 (기본검색어)
-    $inputTarget.on('click', function () {
+    /*$inputTarget*/
+    $('.wrap').on('click', function () {
       var $tag = $TagOuter('basic')
         .data('tag', 'basic')
         .appendTo($inputTarget);
@@ -302,8 +309,9 @@ $(function () {
           }
         });
 
-      var $delBtn = $TagDel().on('click', () => {
+      var $delBtn = $TagDel().on('click', function (e) {
         $tag.remove();
+        e.stopPropagation();
       });
 
       $tag.append($tagInput).append($delBtn);
@@ -319,15 +327,17 @@ $(function () {
         .on('input', onInput)
         .keypress(onKeypress)
         .focus(() => { $delBtn.hide(); })
-        .focusout(function () {
+        .focusout(function (e) {
           $delBtn.show();
           if ($(this).val().length <= 0) {
             $tag.remove();
           }
+          e.stopPropagation();
         });
 
-      var $delBtn = $TagDel().on('click', () => {
+      var $delBtn = $TagDel().on('click', function (e) {
         $tag.remove();
+        e.stopPropagation();
       });
 
       $tag.append($tagInput).append($delBtn);
@@ -360,7 +370,10 @@ $(function () {
         .data('tag', $(this).data('tag'))
         .appendTo($inputTarget),
         $siteIcon = $Img(ImgSrc.siteIcon),
-        $delBtn = $TagDel().on('click', () => { $tag.remove(); }),
+        $delBtn = $TagDel().on('click', function (e) { 
+          $tag.remove(); 
+          e.stopPropagation();
+        }),
         $tagInput = $TagInput('', inputCSS)
           .on('input', onInput)
           .keypress(onKeypress)
@@ -400,14 +413,20 @@ $(function () {
 
       var $tag = $TagOuter("uniq", uniqCSS)
         .data('tag', $(this).data('tag'))
-        .appendTo($inputTarget),
+        .appendTo($inputTarget)
+        .on('click', function(e){
+          e.stopPropagation();
+        }),
         $fileIcon = $Img(ImgSrc.fileIcon),
         $select = $TagSelect('', {
           'background-color': 'black',
           'color': 'white',
           'border-width': '0px'
         }, options),
-        $delBtn = $TagDel().on('click', () => { $tag.remove(); });
+        $delBtn = $TagDel().on('click', function (e) { 
+          $tag.remove();
+          e.stopPropagation();
+        });
 
       $tag.append($fileIcon)
         .append($select)
@@ -443,14 +462,20 @@ $(function () {
 
       var $tag = $TagOuter("uniq", uniqCSS)
         .appendTo($inputTarget)
-        .data('tag', $(this).data('tag')),
+        .data('tag', $(this).data('tag'))
+        .on('click', function(e){
+          e.stopPropagation();
+        }),
         $timeIcon = $Img(ImgSrc.timeIcon),
         $select = $TagSelect('', {
           'background-color': 'black',
           'color': 'white',
           'border-width': '0px'
         }, options),
-        $delBtn = $TagDel().on('click', () => { $tag.remove(); });
+        $delBtn = $TagDel().on('click', function (e) { 
+          $tag.remove();
+          e.stopPropagation();
+        });
 
       $tag.append($timeIcon)
         .append($select)
@@ -469,12 +494,20 @@ $(function () {
         $icon = $Img(ImgSrc[$(this).attr('id') + 'Icon'], {
           'margin-right': '6px'
         }),
-        $delBtn = $TagDel().on('click', () => { $tag.remove(); }),
+        $delBtn = $TagDel().on('click', function(e){ 
+          $tag.remove();
+          e.stopPropagation();
+        }),
 
         $tagInput = $TagInput('', inputCSS)
           .on('input', onInput)
           .keypress(onKeypress)
-          .focus(() => { $delBtn.hide(); })
+          .on('click', function (e) {
+            e.stopPropagation();
+          })
+          .focus(function(e){
+            $delBtn.hide();
+          })
           .focusout(function () {
             $delBtn.show();
             if ($(this).val().length <= 0) {

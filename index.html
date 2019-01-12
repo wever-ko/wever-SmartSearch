@@ -259,8 +259,8 @@
   .history {
     background-color: #ffffff;
     position: absolute;
-    bottom: -200px;
-    height: 200px;
+    bottom: -170px;
+    height: 170px;
     width: 100%;
     box-shadow: 0 -1px 5px 0 rgba(0, 0, 0, 0.15);
     padding-left: 25px;
@@ -278,7 +278,7 @@
   #openBtn {
     position: relative;
     top: -25px;
-    left: calc(50% - 12px);
+    left: calc(50% - 37px);
     width: 24px;
     height: 24px;
     cursor: pointer;
@@ -289,7 +289,7 @@
     display: inline-block;
     top: -69px;
     width: 140px;
-    left: calc(50% - 70px);
+    left: calc(50% - 95px);
     text-align: center;
     font-family: NanumSquareOTFEB;
     font-size: 16px;
@@ -409,13 +409,22 @@
     vertical-align: top;
     padding-right: 4px;
     max-height: 93px;
-    overflow-y: auto;
+    /*overflow-y: auto;*/
   }
 
   #inputTarget img {
     width: 17px;
     height: 17px;
     vertical-align: middle;
+  }
+
+  input {
+    font : 400 11px sans-serif;
+  }
+
+  #testSpan {
+    font : 400 11px sans-serif;
+    color: white;
   }
 
   .inputTag {
@@ -444,12 +453,18 @@
   select:focus {
     outline: none;
   }
+
+  #inwrap {
+    max-height: 120px;
+    overflow-y: auto;
+  }
 </style>
 
 <body>
   <div class="top">
     <img src="images/sm_logo.svg">
     <span class="title">Smart Search</span>
+    <span id ="testSpan" ></span>
   </div>
   <div class="tab">
     <div class="item on" data-name="naver">
@@ -465,8 +480,11 @@
   </div>
   <div class="input_section">
     <div class="wrap">
-      <div id="inputTarget">
+      <div id = "inwrap">
+          <div id="inputTarget">
+            </div>
       </div>
+      
       <div id="search_btn">
         <img src="images/icons/search_btn.svg">
       </div>
