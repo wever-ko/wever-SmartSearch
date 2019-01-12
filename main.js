@@ -1,10 +1,10 @@
 $(function () {
   var ImgSrc = {
-    historyListDel: "images/icons/history_list_del.svg",
-    tagDel: "images/icons/del_tag_icon.svg",
-    siteIcon: "images/icons/site_icon.svg",
-    fileIcon: "images/icons/file_icon.svg",
-    timeIcon: "images/icons/time_icon.svg",
+    historyListDel: 'images/icons/history_list_del.svg',
+    tagDel: 'images/icons/del_tag_icon.svg',
+    siteIcon: 'images/icons/site_icon.svg',
+    fileIcon: 'images/icons/file_icon.svg',
+    timeIcon: 'images/icons/time_icon.svg',
     channelIcon: 'images/icons/channel_icon.svg',
     titleIcon: 'images/icons/title_icon.svg',
     movieIcon: 'images/icons/movie_icon.svg',
@@ -32,8 +32,8 @@ $(function () {
       $('.tag_outer').each(function() {
         var name = $(this).data('tag');
 
-        if (name === "file" || name === "time" || name === "site") {
-          var val = $(this).children((name === "site" ? 'input' : 'select')).val();
+        if (name === 'file' || name === 'time' || name === 'site') {
+          var val = $(this).children((name === 'site' ? 'input' : 'select')).val();
           ret[name] = val;
         } else {
           var val = $(this).children('input').val();
@@ -109,8 +109,12 @@ $(function () {
     loadHistoryList(curSite);
 
     function addHistoryList(lie) {
+      console.log('add History List');
       var $li = $('<li> </li>');
-
+      var hobj = getSiteQuery(paramSite, list[key]);
+        
+      $li.data('site', hobj.site);
+      $li.data('query', hobj.query);
       for (var obj of Object.keys(lie)) {
         $('<span />', {
           class: obj,
@@ -134,11 +138,15 @@ $(function () {
     }
 
     function loadHistoryList(paramSite) {
+      console.log('load History List');
       var list = Wever.History.getAll(paramSite);
-
+     
       for (var key in list) {
         var $li = $('<li></li>');
-
+        var hobj = getSiteQuery(paramSite, list[key]);
+        
+        $li.attr('data-site', hobj.site);
+        $li.attr('data-query', hobj.query);
         for (var key2 in list[key]) {
           for (var value in list[key][key2]) {
             $('<span />', {
@@ -159,12 +167,19 @@ $(function () {
               class: 'right'
             }).appendTo($li)
           );
-
+   
         $li.on('click', function () {
-          for (var i = 0; i <= $(this).children.length; i++) {
-            console.log($(this).children()[i]);
-            // TODO 히스토리 클릭 시 재검색 구현
-          }
+         // console.log('Click!!!');
+         var tagObj = {};
+          //for (var i = 0; i <= $(this).children.length; i++) {
+            //console.log($(this).children()[i]);
+           // var className = $(this).children[i].attr('class');
+          //  console.log(className);
+         // }
+         $(this).children().each( function () {
+           var className = $(this).attr('class');
+           console.log(className);
+         })
         });
 
         $historyList.append($li);
@@ -184,8 +199,8 @@ $(function () {
 
         // 슬라이드 애니메이션
         $(this).animate({
-          left: seqNum == sn ? "51px" :
-            seqNum > sn ? "-100%" : "100%"
+          left: seqNum == sn ? '51px' :
+            seqNum > sn ? '-100%' : '100%'
         }, 200);
         $('li').remove();
       });
@@ -204,7 +219,7 @@ $(function () {
     $('#checkbox')
       .prop('checked', true)
       .change(function () {
-        $('#checkbox').is(":checked") === true ? isChecked = true : isChecked = false;
+        $('#checkbox').is(':checked') === true ? isChecked = true : isChecked = false;
       });
 
     // 각 탭 클릭시
@@ -213,8 +228,8 @@ $(function () {
       curSite = dn;
 
       $curTab.animate({
-        left: dn == "naver" ? "0%" :
-          dn == "google" ? "33.3%" : "66.6%"
+        left: dn == 'naver' ? '0%' :
+          dn == 'google' ? '33.3%' : '66.6%'
       }, 200);
 
       slideTo(dn);
@@ -224,16 +239,16 @@ $(function () {
 
   // 태그 outer <div> 생성
   function $TagOuter(cls, css) {
-    cls = cls || "";
+    cls = cls || '';
     css = css || {};
     return $('<div />').attr({ 'class': 'tabDel tag_outer ' + cls }).css(css);
   }
 
   // 태그 <input type=text> 생성
   function $TagInput(cls, css) {
-    cls = cls || "";
+    cls = cls || '';
     css = css || {};
-    return $('<input type = "text" />').attr({ 'class': 'inputTag ' + cls }).css(css);
+    return $('<input type = 'text' />').attr({ 'class': 'inputTag ' + cls }).css(css);
   }
 
   // 태그 삭제 버튼 생성
@@ -243,7 +258,7 @@ $(function () {
 
   // 태그 <select> 생성
   function $TagSelect(cls, css, options) {
-    cls = cls || "";
+    cls = cls || '';
     css = css || {};
     var $sel = $('<select>').attr({ 'class': cls }).css(css);
     $(options).each(function () {
@@ -366,7 +381,7 @@ $(function () {
         $('.uniq').remove();
       }
 
-      var $tag = $TagOuter("uniq", uniqCSS)
+      var $tag = $TagOuter('uniq', uniqCSS)
         .data('tag', $(this).data('tag'))
         .appendTo($inputTarget),
         $siteIcon = $Img(ImgSrc.siteIcon),
@@ -411,7 +426,7 @@ $(function () {
         $('.uniq').remove();
       }
 
-      var $tag = $TagOuter("uniq", uniqCSS)
+      var $tag = $TagOuter('uniq', uniqCSS)
         .data('tag', $(this).data('tag'))
         .appendTo($inputTarget)
         .on('click', function(e){
@@ -460,7 +475,7 @@ $(function () {
         $('.uniq').remove();
       }
 
-      var $tag = $TagOuter("uniq", uniqCSS)
+      var $tag = $TagOuter('uniq', uniqCSS)
         .appendTo($inputTarget)
         .data('tag', $(this).data('tag'))
         .on('click', function(e){
