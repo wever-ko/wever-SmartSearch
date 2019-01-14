@@ -29,7 +29,7 @@ $(function () {
     function collectTagData() {
       var ret = {};
 
-      $('.tag_outer').each(function() {
+      $('.tag_outer').each(function () {
         var name = $(this).data('tag');
 
         if (name === 'file' || name === 'time' || name === 'site') {
@@ -63,10 +63,10 @@ $(function () {
       return tmp;
     }
 
-    $('#search_btn').on('click', function(e) {
+    $('#search_btn').on('click', function (e) {
       var queryObj = {};
 
-      $('.tag_outer').each(function() {
+      $('.tag_outer').each(function () {
         queryObj = collectTagData();
       });
 
@@ -108,13 +108,12 @@ $(function () {
     var $historyList = $('#historyList');
     loadHistoryList(curSite);
 
+    // 검색 기록 추가
     function addHistoryList(lie) {
-      console.log('add History List');
-      var $li = $('<li> </li>');
-      var hobj = getSiteQuery(paramSite, list[key]);
-        
-      $li.data('site', hobj.site);
-      $li.data('query', hobj.query);
+      var $li = $('<li></li>');
+      var hobj = getSiteQuery(curSite, lie);
+      $li.attr('data-site', hobj.site);
+      $li.attr('data-query', hobj.query);
       for (var obj of Object.keys(lie)) {
         $('<span />', {
           class: obj,
@@ -134,26 +133,29 @@ $(function () {
           }).appendTo($li)
         );
 
+      $li.on('click', function () {
+        var queryObj = { site: $(this).attr('data-site'), query: $(this).attr('data-query') };
+        Wever.NewTab.open(queryObj);
+      });
+
       $historyList.prepend($li);
     }
 
+    // 검색 기록 불러오기
     function loadHistoryList(paramSite) {
-      console.log('load History List');
       var list = Wever.History.getAll(paramSite);
-     
       for (var key in list) {
         var $li = $('<li></li>');
         var hobj = getSiteQuery(paramSite, list[key]);
-        
+
         $li.attr('data-site', hobj.site);
         $li.attr('data-query', hobj.query);
-        for (var key2 in list[key]) {
-          for (var value in list[key][key2]) {
-            $('<span />', {
-              class: key2,
-              text: list[key][key2][value]
-            }).appendTo($li);
-          }
+
+        for (var obj of Object.keys(list[key])) {
+          $('<span />', {
+            class: obj,
+            text: list[key][obj]
+          }).appendTo($li);
         }
 
         $('<img>')
@@ -167,19 +169,10 @@ $(function () {
               class: 'right'
             }).appendTo($li)
           );
-   
+
         $li.on('click', function () {
-         // console.log('Click!!!');
-         var tagObj = {};
-          //for (var i = 0; i <= $(this).children.length; i++) {
-            //console.log($(this).children()[i]);
-           // var className = $(this).children[i].attr('class');
-          //  console.log(className);
-         // }
-         $(this).children().each( function () {
-           var className = $(this).attr('class');
-           console.log(className);
-         })
+          var queryObj = { site: $(this).attr('data-site'), query: $(this).attr('data-query') };
+          Wever.NewTab.open(queryObj);
         });
 
         $historyList.append($li);
@@ -234,6 +227,7 @@ $(function () {
 
       slideTo(dn);
       curSite = dn;
+      loadHistoryList(curSite);
     });
   })();
 
@@ -248,7 +242,7 @@ $(function () {
   function $TagInput(cls, css) {
     cls = cls || '';
     css = css || {};
-    return $('<input type = 'text' />').attr({ 'class': 'inputTag ' + cls }).css(css);
+    return $('<input type = "text" />').attr({ 'class': 'inputTag ' + cls }).css(css);
   }
 
   // 태그 삭제 버튼 생성
@@ -306,7 +300,7 @@ $(function () {
         'height': '20px',
         'background-color': 'none'
       };
-    
+
     // 검색창 클릭 (기본검색어)
     /*$inputTarget*/
     $('.wrap').on('click', function () {
@@ -385,8 +379,8 @@ $(function () {
         .data('tag', $(this).data('tag'))
         .appendTo($inputTarget),
         $siteIcon = $Img(ImgSrc.siteIcon),
-        $delBtn = $TagDel().on('click', function (e) { 
-          $tag.remove(); 
+        $delBtn = $TagDel().on('click', function (e) {
+          $tag.remove();
           e.stopPropagation();
         }),
         $tagInput = $TagInput('', inputCSS)
@@ -429,7 +423,7 @@ $(function () {
       var $tag = $TagOuter('uniq', uniqCSS)
         .data('tag', $(this).data('tag'))
         .appendTo($inputTarget)
-        .on('click', function(e){
+        .on('click', function (e) {
           e.stopPropagation();
         }),
         $fileIcon = $Img(ImgSrc.fileIcon),
@@ -438,7 +432,7 @@ $(function () {
           'color': 'white',
           'border-width': '0px'
         }, options),
-        $delBtn = $TagDel().on('click', function (e) { 
+        $delBtn = $TagDel().on('click', function (e) {
           $tag.remove();
           e.stopPropagation();
         });
@@ -478,7 +472,7 @@ $(function () {
       var $tag = $TagOuter('uniq', uniqCSS)
         .appendTo($inputTarget)
         .data('tag', $(this).data('tag'))
-        .on('click', function(e){
+        .on('click', function (e) {
           e.stopPropagation();
         }),
         $timeIcon = $Img(ImgSrc.timeIcon),
@@ -487,7 +481,7 @@ $(function () {
           'color': 'white',
           'border-width': '0px'
         }, options),
-        $delBtn = $TagDel().on('click', function (e) { 
+        $delBtn = $TagDel().on('click', function (e) {
           $tag.remove();
           e.stopPropagation();
         });
@@ -509,7 +503,7 @@ $(function () {
         $icon = $Img(ImgSrc[$(this).attr('id') + 'Icon'], {
           'margin-right': '6px'
         }),
-        $delBtn = $TagDel().on('click', function(e){ 
+        $delBtn = $TagDel().on('click', function (e) {
           $tag.remove();
           e.stopPropagation();
         }),
@@ -520,7 +514,7 @@ $(function () {
           .on('click', function (e) {
             e.stopPropagation();
           })
-          .focus(function(e){
+          .focus(function (e) {
             $delBtn.hide();
           })
           .focusout(function () {
